@@ -1,0 +1,72 @@
+import discord
+import os
+import random
+from discord.ext import commands
+import requests
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+def get_duck_mem():
+    url = 'https://random.dog/woof.json'
+    res = requests.get(url)
+    data = res.json()
+    return data
+
+@bot.command('duck')
+async def duck(ctx):
+    duckUrl = get_duck_mem
+    await ctx.send(duckUrl)
+
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
+
+@bot.command(name='clear50', help='this command will clear msgs')
+async def clear(ctx, amount = 50):
+    await ctx.channel.purge(limit=amount)
+
+@bot.command()
+async def mem(ctx):
+    randomMem = random.choice(os.listdir(''))
+    with open(f'image/{randomMem}', 'rb') as f:
+        picture = discord.File(f)
+    await ctx.send(file=picture)
+
+@bot.command()
+async def hayvanmem(ctx):
+    sayi=random.randint(1,99)
+    if sayi<=29:
+        with open('hayvanimage/meem1.jpg','rb') as meem1:
+            picture = discord.File(meem1)
+            await ctx.send(file=picture)
+            await ctx.send("%33 şans ile bu resim çıktı.")
+    if sayi>=30 and sayi<50:
+        with open('hayvanimage/meem2.jpg','rb') as meem2:
+            picture = discord.File(meem2)
+            await ctx.send(file=picture)
+            await ctx.send(("%33 şans ile bu resim çıktı"))
+    if sayi>=51 and sayi<70:
+        with open('hayvanimage/meem3.jpg','rb') as meem3:
+            picture = discord.File(meem3)
+            await ctx.send(file=picture)
+            await ctx.send("%33 şans ile bu resim çıktı")
+    if sayi>=71 and sayi<90:
+        with open('hayvanimage/meem4.jpg','rb') as meem4:
+            picture = discord.File(meem4)
+            await ctx.send(file=picture)
+            await ctx.send("%33 şans ile bu resim çıktı")
+    if sayi>=91 and sayi<99:
+        with open('hayvanimage/meem5.jpg','rb') as meem5:
+            picture = discord.File(meem5)
+            await ctx.send(file=picture)
+            await ctx.send("%33 şans ile bu resim çıktı")
+    if sayi==100:
+        with open('hayvanimage/meem6.jpg','rb') as meem6:
+            picture = discord.File(meem6)
+            await ctx.send(file=picture)
+            await ctx.send("%33 şans ile bu resim çıktı")
+
+bot.run('token')    
